@@ -10,7 +10,7 @@ const {
 /**
  * CONTRACT ROUTE TESTS
  */
-describe('GET contract by ID', () => {
+describe('Contract tests', () => {
   let randomContract;
   let profile;
 

@@ -7,7 +7,7 @@ const {
   sequelize, Contract, Job, Profile,
 } = require('../model');
 
-describe('Test API and mock NPM Modules', () => {
+describe('Job route tests', () => {
   let randomUnpaidJob;
   let res;
 
