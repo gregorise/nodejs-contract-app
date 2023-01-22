@@ -1,0 +1,37 @@
+### Get contract by ID
+GET http://localhost:3001/contracts/1 HTTP/1.1
+content-type: application/json
+profile_id: 1
+
+### Get all contracts
+GET http://localhost:3001/contracts HTTP/1.1
+profile_id: 1
+
+### Get unpaid jobs 
+GET http://localhost:3001/jobs/unpaid HTTP/1.1
+profile_id: 1
+
+### POST pay job 
+POST http://localhost:3001/jobs/1/pay HTTP/1.1
+profile_id: 1
+
+### POST deposit
+POST http://localhost:3001/jobs/deposit/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "amount" : "100"
+}
+
+### GET best profession
+GET http://localhost:3001/admin/best-profession?startDate=2020-12-12&endDate=2023-12-12 HTTP/1.1
+
+### GET best profession - no dates
+GET http://localhost:3001/admin/best-profession HTTP/1.1
+
+
+### GET best clients
+GET http://localhost:3001/admin/best-clients?startDate=2012-12-12&endDate=2024-12-12&limit=20 HTTP/1.1
+
+### GET best clients - no dates
+GET http://localhost:3001/admin/best-clients?limit=4 HTTP/1.1
