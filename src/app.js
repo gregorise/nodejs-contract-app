@@ -152,11 +152,17 @@ app.post(
         model: Contract,
         where: { ClientId: req.profile.id },
         required: true,
-        include: {
+        include: [{
           model: Profile,
           as: 'Contractor',
           required: true, // Ensure a contractor is assigned
         },
+        {
+          model: Profile,
+          as: 'Client',
+          required: true,
+        },
+        ],
       }],
       where: {
         id: jobId,
@@ -178,8 +184,9 @@ app.post(
     job.paid = 1;
 
     // Adjust client and contractor balances
-    clientProfile.balance -= job.price;
-    job.Contract.Contractor.balance += job.price;
+    clientProfile.balance = parseFloat(clientProfile.balance, 2) - parseFloat(job.price, 2);
+    job.Contract.Contractor.balance = parseFloat(job.Contract.Contractor.balance, 2)
+      + parseFloat(job.price, 2);
 
     const transaction = await sequelize.transaction();
     try {
@@ -189,13 +196,13 @@ app.post(
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();
-      // Log full exception
-      console.log('Exception raised: ', err);
-      // Generic error to be returned
+      // Log full exception and raise generic error
       return res.json(500, { error: 'An internal error has occured.' });
     }
 
-    return res.json({ data: [job, { client: clientProfile }] });
+    // Thankfully after running tests I added this to update the API result
+    await job.reload();
+    return res.json({ data: job });
   },
 );
 

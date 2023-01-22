@@ -1,7 +1,3 @@
-# DEEL BACKEND TASK
-
-  
-
 💫 Welcome! 🎉
 
 
